@@ -1,0 +1,16 @@
+word1,word2,category,score
+kedi,köpek,similar,0.78570515
+araba,taşıt,similar,0.6050256
+doktor,hekim,similar,0.7923044
+öğrenci,talebe,similar,0.41800725
+masa,sandalye,related,0.6116198
+çay,bardak,related,0.6021801
+doktor,hastane,related,0.56498444
+kitap,kütüphane,related,0.5633086
+kalem,kağıt,related,0.5861396
+öğretmen,okul,related,0.49935785
+kedi,özgürlük,unrelated,0.1975593
+masa,aşk,unrelated,0.14566398
+araba,üzüm,unrelated,0.22933994
+köpek,anayasa,unrelated,0.093639016
+bardak,demokrasi,unrelated,0.16175066
