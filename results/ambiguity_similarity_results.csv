@@ -1,0 +1,6 @@
+target,meaning1,meaning1_score,meaning2,meaning2_score
+yaz,kış,0.7549363,yazmak,0.32713097
+yüz,surat,0.5582711,yüzmek,0.12277801
+ay,yıldız,0.16605811,hafta,0.37778437
+dolu,boş,0.5158616,kar,0.27094758
+çal,gitar,0.2764361,hırsız,0.24194087
