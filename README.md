@@ -126,6 +126,18 @@ Run similarity analysis:
 python src/similarity_analysis.py
 ```
 
+Run STSB experiment:
+
+```bash
+python src/stsb_experiment.py
+```
+
+Generate STSB visualizations:
+
+```bash
+python src/visualize_stsb.py
+```
+
 Run semantic relation analysis:
 
 ```bash

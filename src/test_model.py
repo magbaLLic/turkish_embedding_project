@@ -10,6 +10,7 @@ model_path = (
 )
 model = fasttext.load_model(str(model_path))
 
+# Inspect a few nearest neighbors.
 neighbors = model.get_nearest_neighbors("kedi")
 
 print(neighbors)

@@ -13,6 +13,7 @@ results_path = project_root / "results" / "ambiguity_similarity_results.csv"
 
 model = fasttext.load_model(str(model_path))
 
+# Load the ambiguity similarity pairs.
 try:
     df = pd.read_csv(data_path)
 except EmptyDataError as exc:
@@ -26,6 +27,7 @@ def cosine_similarity(v1, v2):
         np.linalg.norm(v1) * np.linalg.norm(v2)
     )
 
+# Compute similarity scores for both meanings.
 results = []
 
 for _, row in df.iterrows():
@@ -52,9 +54,8 @@ for _, row in df.iterrows():
 
 results_df = pd.DataFrame(results)
 
-print(results_df)
-
 results_path.parent.mkdir(parents=True, exist_ok=True)
 results_df.to_csv(results_path, index=False)
 
-print("\nResults saved!")
+# Save the final table.
+print(f"Results saved to: {results_path}")

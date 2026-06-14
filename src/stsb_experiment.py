@@ -9,7 +9,7 @@ import pandas as pd
 from scipy.stats import spearmanr
 
 
-# DATASET
+# Load the STSB dataset.
 
 STS_URL = (
     "https://raw.githubusercontent.com/"
@@ -30,7 +30,7 @@ df = pd.read_csv(
 print(f"Dataset loaded: {len(df)} rows")
 
 print(len(df))
-# MODEL
+# Load the embedding model.
 
 model_path = (
     Path(__file__).resolve().parents[1]
@@ -44,7 +44,7 @@ model = fasttext.load_model(str(model_path))
 print("Model loaded.")
 
 
-# HELPERS
+# Helper functions.
 
 def cosine_similarity(v1, v2):
     return np.dot(v1, v2) / (
@@ -75,9 +75,7 @@ def sentence_embedding(sentence):
     return np.mean(vectors, axis=0)
 
 
-# 
-# EXPERIMENT
-# 
+# Run the sentence-pair experiment.
 
 results = []
 
@@ -103,20 +101,23 @@ for idx, row in df.iterrows():
         "sentence2": sent2
     })
 
-    if idx % 500 == 0:
-        print(f"Processed {idx} rows...")
+    # Log progress every 500 rows.
+    if (idx + 1) % 500 == 0: # type: ignore
+        print(f"Processed {idx + 1} rows...") # type: ignore
 
 
 results_df = pd.DataFrame(results)
 
 
-# SAVE RESULTS
+# Save the experiment output.
 
 output_path = (
     Path(__file__).resolve().parents[1]
     / "results"
     / "stsb_results.csv"
 )
+
+output_path.parent.mkdir(parents=True, exist_ok=True)
 
 results_df.to_csv(
     output_path,
@@ -125,8 +126,24 @@ results_df.to_csv(
 
 print(f"\nResults saved to:\n{output_path}")
 
+# Show the strongest matches.
 
-# CORRELATION
+best_examples = results_df.sort_values(
+    by="model_score",
+    ascending=False
+).head(10)
+
+print(best_examples[
+    [
+        "sentence1",
+        "sentence2",
+        "human_score",
+        "model_score"
+    ]
+])
+
+
+# Compute the final correlation.
 
 correlation, p_value = spearmanr(
     results_df["human_score"],
@@ -141,7 +158,7 @@ print(f"Spearman Correlation: {correlation:.4f}")
 print(f"P-value: {p_value:.8f}")
 
 
-# SAMPLE OUTPUT
+# Print a small sample of predictions.
 
 print("\nSample predictions:\n")
 

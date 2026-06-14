@@ -15,6 +15,7 @@ model_path = (
 )
 model = fasttext.load_model(str(model_path))
 
+# Load the similarity benchmark pairs.
 data_path = Path(__file__).resolve().parents[1] / "data" / "similarity.csv"
 results_path = Path(__file__).resolve().parents[1] / "results" / "similarity_results.csv"
 
@@ -32,6 +33,7 @@ def cosine_similarity(v1, v2):
         np.linalg.norm(v1) * np.linalg.norm(v2)
     )
 
+# Score each word pair.
 results = []
 
 for _, row in df.iterrows():
@@ -54,10 +56,9 @@ for _, row in df.iterrows():
 
 results_df = pd.DataFrame(results)
 
-print(results_df)
-
 
 results_path.parent.mkdir(parents=True, exist_ok=True)
 results_df.to_csv(str(results_path), index=False)
 
-print("\nResults saved!")
+# Save the final CSV.
+print(f"Results saved to: {results_path}")

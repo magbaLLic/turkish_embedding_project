@@ -17,9 +17,7 @@ model_path = (
 
 model = fasttext.load_model(str(model_path))
 
-# -------------------------
-# Load dataset
-# -------------------------
+# Load the analogy dataset.
 
 data_path = (
     Path(__file__).resolve().parents[1]
@@ -35,19 +33,13 @@ except Exception as exc:
 if df.empty:
     raise ValueError(f"Analogies data file has no rows: {data_path}")
 
-# -------------------------
-# Cosine similarity
-# -------------------------
-
+# Compare predicted and expected vectors with cosine similarity.
 def cosine_similarity(v1, v2):
     return np.dot(v1, v2) / (
         np.linalg.norm(v1) * np.linalg.norm(v2)
     )
 
-# -------------------------
-# Analogy
-# -------------------------
-
+# Score each analogy example.
 for _, row in df.iterrows():
 
     a = row["a"]

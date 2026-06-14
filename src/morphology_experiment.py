@@ -15,6 +15,7 @@ model_path = (
 
 model = fasttext.load_model(str(model_path))
 
+# Load the morphology pairs.
 data_path = Path(__file__).resolve().parents[1] / "data" / "morphology.csv"
 try:
     df = pd.read_csv(data_path)
@@ -24,6 +25,7 @@ except EmptyDataError as exc:
 if df.empty:
     raise ValueError(f"Morphology data file has no rows: {data_path}")
 
+# Compute cosine similarity for each pair.
 def cosine_similarity(v1, v2):
     return np.dot(v1, v2) / (
         np.linalg.norm(v1) * np.linalg.norm(v2)
@@ -50,6 +52,7 @@ for _, row in df.iterrows():
 
 results_df = pd.DataFrame(results)
 
+# Show the computed scores.
 print(results_df)
 
 
@@ -59,8 +62,12 @@ output_path = (
     / "morphology_results.csv"
 )
 
+output_path.parent.mkdir(parents=True, exist_ok=True)
+
+# Save the morphology results.
 results_df.to_csv(output_path, index=False)
 
+# Print a short summary.
 print("\nSaved:")
 print(output_path)
 
